@@ -1,16 +1,19 @@
 import mysql.connector
 import os
+import db_config
+
 
 dbpw = os.environ.get('GENE_DB_PASSWORD')
 dbna = os.environ.get('GENE_DB_NAME')
 print(dbpw)
 print(dbna)
 
+
 mydb = mysql.connector.connect(
-	host="127.0.0.1",
-	user="root",
-	passwd= os.environ.get('GENE_DB_PASSWORD'), # "BXY5201314", 
-	database= os.environ.get('GENE_DB_NAME') # "gene"
+	host=db_config.local_host,
+	user=db_config.user,
+	passwd=db_config.passwd,
+	database=db_config.database	
 	)
 
 mycursor = mydb.cursor()

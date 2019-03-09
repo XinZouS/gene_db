@@ -1,11 +1,12 @@
 import mysql.connector
+import db_config
 
 
 mydb = mysql.connector.connect(
-	host="127.0.0.1",
-	user="root",
-	passwd="BXY5201314",
-	database="gene"
+	host=db_config.local_host,
+	user=db_config.user,
+	passwd=db_config.passwd,
+	database=db_config.database	
 	)
 
 mycursor = mydb.cursor()

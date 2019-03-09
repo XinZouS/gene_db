@@ -1,13 +1,16 @@
 import mysql.connector
 import time
 from openpyxl import load_workbook
+import db_config
+
 
 mydb = mysql.connector.connect(
-	host="127.0.0.1",
-	user="root",
-	passwd= os.environ.get('GENE_DB_PASSWORD'), # "BXY5201314", 
-	database= os.environ.get('GENE_DB_NAME'), # "gene"
+	host=db_config.local_host,
+	user=db_config.user,
+	passwd=db_config.passwd,
+	database=db_config.database	
 	)
+
 
 mycursor = mydb.cursor()
 
