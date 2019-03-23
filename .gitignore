@@ -8,6 +8,8 @@ __pycache__/
 *.xsd
 *.bash_profile
 
+.DS_Store
+
 # db configs
 db_config.py
 
