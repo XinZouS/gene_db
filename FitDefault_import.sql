@@ -5,7 +5,7 @@
 
 -- Expectation fetch time: 976 sec
 
-INSERT INTO blog_fitdefault (
+INSERT INTO research_fitdefault (
 	Name,
 	Category,
 	MFVA,
@@ -128,7 +128,7 @@ SELECT
 	f.Bench Benchmark,
     s.SecId,
 	s.FundId
-from blog_shares s, blog_funds f
+from research_shares s, research_funds f
 where s.secid=f.secid -- and s.fundid=f.fundid
 group by 
 	Name,
@@ -195,7 +195,7 @@ group by
 
 
 -- check if success
-select AdvisorId_id, CategoryId_id, ManagerNameid_id, SubAdvisorId_id, SecId, FundId from blog_fitdefault;
+select AdvisorId_id, CategoryId_id, ManagerNameid_id, SubAdvisorId_id, SecId, FundId from research_fitdefault;
 
 
 
@@ -204,32 +204,32 @@ select AdvisorId_id, CategoryId_id, ManagerNameid_id, SubAdvisorId_id, SecId, Fu
 -- 2. Insert the section tables for searching ----------------------
 
 -- == insert the Categorys (MSCat) table == -- 
-INSERT INTO blog_fitcategorys (Name)
-select Category AS Name from blog_fitdefault 
+INSERT INTO research_categorys (Name)
+select Category AS Name from research_fitdefault 
 where Category is not null 
 group by Category 
 order by Category
 ;
 
 -- == insert the Advisors (Advisor) table == -- 
-INSERT INTO blog_fitadvisors (Name)
-select Advisor AS Name from blog_fitdefault 
+INSERT INTO research_advisors (Name)
+select Advisor AS Name from research_fitdefault 
 where Advisor is not null 
 group by Advisor 
 order by Advisor
 ;
 
 -- == insert the SubAdvisors (SubAdv) table == -- 
-INSERT INTO blog_fitsubadvisors (Name)
-select SubAdvisor AS Name from blog_fitdefault 
+INSERT INTO research_subadvisors (Name)
+select SubAdvisor AS Name from research_fitdefault 
 where SubAdvisor is not null 
 group by SubAdvisor 
 order by SubAdvisor
 ;
 
 -- == insert the Managernames (MgrName) table == -- 
-INSERT INTO blog_fitmanagernames (Name)
-select ManagerName AS Name from blog_fitdefault 
+INSERT INTO research_managernames (Name)
+select ManagerName AS Name from research_fitdefault 
 where ManagerName is not null 
 group by ManagerName 
 order by ManagerName

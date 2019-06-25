@@ -14,7 +14,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 colum_names = "FundId, Fund, SubAdvisor, SubAdvisorParent, AdvisorParent, SubAdvised, AgrmStart, AgrmEnd, SubStart, SubEnd, SubAlloc, SubAUM, FundAUM, EffSub, SubSched3"
-sqlFormula = "INSERT INTO blog_SubAdv (" + colum_names + ") VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+sqlFormula = "INSERT INTO research_SubAdv (" + colum_names + ") VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
 start_time = time.time()
 print("- opening file...")
@@ -34,6 +34,23 @@ def roundFloat(val, decimals):
 	return val
 
 
+def toFloat_3(val):
+	if val is not None:
+		return '%.3f' % val
+	else:
+		return None
+
+
+def toFloat_6(val):
+	if val is not None:
+		return '%.6f' % val
+	else:
+		return None
+
+
+i = 1
+total = sheet.max_row + 1 - 12
+
 for r in range(2, sheet.max_row + 1): # (2, sheet.max_row + 1), row and col in Excel starts at 1
 	FundId	= sheet.cell(r,	1).value
 	Fund	= sheet.cell(r,	2).value
@@ -45,16 +62,18 @@ for r in range(2, sheet.max_row + 1): # (2, sheet.max_row + 1), row and col in E
 	AgrmEnd	= sheet.cell(r,	8).value
 	SubStart	= sheet.cell(r,	9).value
 	SubEnd	= sheet.cell(r,	10).value
-	SubAlloc= roundFloat(sheet.cell(r,11).value, 4)
-	SubAUM	= roundFloat(sheet.cell(r,12).value, 4)
-	FundAUM	= roundFloat(sheet.cell(r,13).value, 4)
-	EffSub	= roundFloat(sheet.cell(r,14).value, 4)
+	SubAlloc= toFloat_3(sheet.cell(r,11).value)
+	SubAUM	= toFloat_6(sheet.cell(r,12).value)
+	FundAUM	= toFloat_6(sheet.cell(r,13).value)
+	EffSub	= toFloat_3(sheet.cell(r,14).value)
 	SubSched3	= sheet.cell(r,	15).value
 
 	values = (FundId, Fund, SubAdvisor, SubAdvisorParent, AdvisorParent, SubAdvised, AgrmStart, AgrmEnd, SubStart, SubEnd, SubAlloc, SubAUM, FundAUM, EffSub, SubSched3)
 
-	print(r)
+	# print(r)
 	# print("--- inserting val = ", values)
+	print('%s / %s' % (i,total))
+	i += 1
 	if Fund:
 		mycursor.execute(sqlFormula, values)
 

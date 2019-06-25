@@ -14,7 +14,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 # 1. get { Category.Name : ID }
-mycursor.execute("SELECT * FROM blog_fitcategorys")
+mycursor.execute("SELECT * FROM research_categorys")
 catIdNames = mycursor.fetchall()
 fullLen = len(catIdNames)
 for i in range(fullLen):
@@ -24,7 +24,7 @@ for i in range(fullLen):
 	# print("catId = %s" % row[0]) # test only
 	# print("catName = %s" % row[1])
 	# 2. use { Category.Name : ID } to update CategoryID_id in FitDefault
-	sqlFormula = "UPDATE blog_fitDefault SET CategoryID_id = %s WHERE Category = %s"
+	sqlFormula = "UPDATE research_fitDefault SET CategoryID_id = %s WHERE Category = %s"
 	mycursor.execute(sqlFormula, (catId, catName))
 	print("%s / %s" % (i, fullLen))
 
